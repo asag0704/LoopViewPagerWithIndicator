@@ -1,4 +1,4 @@
 # LoopViewPagerWithIndicator
 ## Use Library
-> https://github.com/imbryk/LoopingViewPager
-> https://github.com/JakeWharton/ViewPagerIndicator
+> 1.https://github.com/imbryk/LoopingViewPager
+> 2.https://github.com/JakeWharton/ViewPagerIndicator
