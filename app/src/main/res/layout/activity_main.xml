@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:orientation="vertical">
 
-    <android.support.v4.view.ViewPager
+    <com.dev.wonn.loopviewpagerwithindicator.LoopViewPager
         android:id="@+id/vp_viewPager"
         android:layout_width="match_parent"
         android:layout_height="200dp"/>
 
-    <android.support.design.widget.TabLayout
+    <!--<android.support.design.widget.TabLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:tabBackground="@drawable/tab_selector"-->
+        <!--app:tabGravity="center"-->
+        <!--app:tabIndicatorHeight="0dp"-->
+        <!--android:id="@+id/tl_indicator" />-->
+    
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_listView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabBackground="@drawable/tab_selector"
-        app:tabGravity="center"
-        app:tabIndicatorHeight="0dp"
-        android:id="@+id/tl_indicator" />
+        android:layout_height="216dp" />
 
-</RelativeLayout>
+</LinearLayout>

@@ -1,75 +1,64 @@
 package com.dev.wonn.loopviewpagerwithindicator;
 
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    ViewPager vp_viewPager;
-    TabLayout tl_indicator;
-    Adaptor_ViewPager adaptor_viewPager;
-    List<Item_ViewPager> list_viewPager = new ArrayList<>();
+    LoopViewPager vp_viewPager;
+
+    LayoutInflater inflater;
+    int[] images = new int[] {
+            R.drawable.test1,
+            R.drawable.test2,
+            R.drawable.test3,
+            R.drawable.test4
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         vp_viewPager = findViewById(R.id.vp_viewPager);
-        tl_indicator = findViewById(R.id.tl_indicator);
-        initView();
-        adaptor_viewPager = new Adaptor_ViewPager(getApplicationContext(), getLayoutInflater(), list_viewPager);
-        vp_viewPager.setAdapter(adaptor_viewPager);
-        tl_indicator.setupWithViewPager(vp_viewPager, true);
-        tl_indicator.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        vp_viewPager.setAdapter(new PagerAdapter() {
+
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                Log.i("MainActivity", "onTabSelected: " + tab.getPosition());
+            public Object instantiateItem(ViewGroup container, int position) {
+                ImageView iv_viewPager = new ImageView(container.getContext());
+                iv_viewPager.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                Glide.with(getApplicationContext()).load(images[position]).into(iv_viewPager);
+                container.addView(iv_viewPager);
+                return iv_viewPager;
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
+            public int getCount() {
+                return images.length;
             }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-        vp_viewPager.setOffscreenPageLimit(adaptor_viewPager.getCount());
-        vp_viewPager.setCurrentItem(list_viewPager.size());
-        vp_viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+            public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
+                return view == object;
             }
 
             @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                int position = vp_viewPager.getCurrentItem();
-
-                if (state == ViewPager.SCROLL_STATE_IDLE
-                        && (position == 0 || position == adaptor_viewPager.getCount()-1)) {
-                    vp_viewPager.setCurrentItem(adaptor_viewPager
-                            .getRealPosition(position, adaptor_viewPager.getCount()), false);
-                }
+            public void destroyItem(ViewGroup container, int position, Object object) {
+                container.removeView((View) object);
             }
         });
-    }
-
-    public void initView() {
-        for (int i=0; i<5; i++) {
-            list_viewPager.add(new Item_ViewPager(R.drawable.test1, "Pages : " + (i+1)));
-        }
     }
 }
