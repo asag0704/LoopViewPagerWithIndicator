@@ -14,12 +14,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.viewpagerindicator.CirclePageIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     LoopViewPager vp_viewPager;
+    CirclePageIndicator indicator;
 
     LayoutInflater inflater;
     int[] images = new int[] {
@@ -60,5 +62,8 @@ public class MainActivity extends AppCompatActivity {
                 container.removeView((View) object);
             }
         });
+
+        indicator = findViewById(R.id.indicator);
+        indicator.setViewPager(vp_viewPager);
     }
 }
