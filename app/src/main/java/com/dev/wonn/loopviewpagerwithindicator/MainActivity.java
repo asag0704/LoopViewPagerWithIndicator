@@ -1,29 +1,21 @@
 package com.dev.wonn.loopviewpagerwithindicator;
 
 import android.support.annotation.NonNull;
-import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.viewpagerindicator.CirclePageIndicator;
+import com.rd.PageIndicatorView;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     LoopViewPager vp_viewPager;
-    CirclePageIndicator indicator;
+    PageIndicatorView rbIndicator;
 
-    LayoutInflater inflater;
     int[] images = new int[] {
             R.drawable.test1,
             R.drawable.test2,
@@ -44,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
                 iv_viewPager.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 Glide.with(getApplicationContext()).load(images[position]).into(iv_viewPager);
                 container.addView(iv_viewPager);
+                rbIndicator.setSelected(LoopViewPager.toRealPosition(position, images.length));
                 return iv_viewPager;
             }
 
@@ -63,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        indicator = findViewById(R.id.indicator);
-        indicator.setViewPager(vp_viewPager);
+        rbIndicator = findViewById(R.id.rbIndicator);
+        rbIndicator.setCount(images.length);
+
     }
 }
